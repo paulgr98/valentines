@@ -14,7 +14,7 @@ The app has defined support for two languages:
 
 Additional languages can be added in msg.json file.
 
-# Requirements
+## Requirements
 
 Executable file (app.exe) should run just fine.
 
