@@ -1,36 +1,50 @@
 import PySimpleGUI as sg
+import tomllib as tml
+import json
 
 icon = './heart.ico'
 
-sg.popup('Twój komp został zhackowany xD LOL', title='xD', button_type=sg.POPUP_BUTTONS_OK, icon=icon)
+with open('config.toml', 'rb') as f:
+    config = tml.load(f)
 
-sg.popup('Jednakże mam jedno pytanie...', title='Hmmm', button_type=sg.POPUP_BUTTONS_OK, icon=icon)
+lang = config['app']['lang']
+
+with open('msg.json', 'r', encoding='utf-8') as f:
+    msg = json.load(f)
+
+# check if the language is supported in msg.json
+if lang not in msg:
+    lang = 'en'
+
+sg.popup(msg[lang]['msg1'], title='xD', button_type=sg.POPUP_BUTTONS_OK, icon=icon)
+
+sg.popup(msg[lang]['msg2'], title='Hmmm', button_type=sg.POPUP_BUTTONS_OK, icon=icon)
 
 choice, _ = sg.Window(
-    '❤️',
-    [[sg.T('Będziesz moją walentynką?')],
-     [sg.Yes(s=10, button_text='Tak'), sg.No(s=10, button_text='Nie')]],
+    '❤',
+    [[sg.T(msg[lang]['msg3'])],
+     [sg.Yes(s=10, button_text=msg[lang]['yes']), sg.No(s=10, button_text=msg[lang]['no'])]],
     icon=icon,
     disable_close=True).read(close=True)
 
 
-def thanks():
+def thanks() -> None:
     global icon
-    sg.popup('Yaaay, dziękuję ♥♥♥♥♥', title='❤️', button_type=sg.POPUP_BUTTONS_OK, icon=icon)
+    sg.popup(msg[lang]['msg4'], title='❤', button_type=sg.POPUP_BUTTONS_OK, icon=icon)
 
 
-if choice == 'Nie':
+if choice == msg[lang]['no']:
     for i in range(5):
         choice, _ = sg.Window(
-            '❤️',
-            [[sg.T('Proszę :c')],
-             [sg.Yes(s=10, button_text='Tak'), sg.No(s=10, button_text='Nie')]],
+            '❤',
+            [[sg.T(msg[lang]['msg5'])],
+             [sg.Yes(s=10, button_text=msg[lang]['yes']), sg.No(s=10, button_text=msg[lang]['no'])]],
             icon=icon,
             disable_close=True).read(close=True)
-        if choice == 'Tak':
+        if choice == msg[lang]['yes']:
             thanks()
             break
     else:
-        sg.popup('Pierdol się...', title='...', button_type=sg.POPUP_BUTTONS_OK, icon=icon)
+        sg.popup(msg[lang]['msg6'], title='...', button_type=sg.POPUP_BUTTONS_OK, icon=icon)
 else:
     thanks()
