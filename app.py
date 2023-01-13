@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
 import tomllib as tml
 import json
+import sys
 
 icon = './heart.ico'
 
@@ -9,6 +10,7 @@ try:
         config = tml.load(f)
 except FileNotFoundError:
     sg.popup('File "config.toml" not found...', title='Opps!', button_type=sg.POPUP_BUTTONS_OK)
+    sys.exit()
 
 lang = config['app']['lang']
 
@@ -17,6 +19,7 @@ try:
         msg = json.load(f)
 except FileNotFoundError:
     sg.popup('File "msg.json" not found...', title='Opps!', button_type=sg.POPUP_BUTTONS_OK)
+    sys.exit()
 
 # check if the language is supported in msg.json
 if lang not in msg:
