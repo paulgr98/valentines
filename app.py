@@ -4,13 +4,19 @@ import json
 
 icon = './heart.ico'
 
-with open('config.toml', 'rb') as f:
-    config = tml.load(f)
+try:
+    with open('config.toml', 'rb') as f:
+        config = tml.load(f)
+except FileNotFoundError:
+    sg.popup('File "config.toml" not found...', title='Opps!', button_type=sg.POPUP_BUTTONS_OK)
 
 lang = config['app']['lang']
 
-with open('msg.json', 'r', encoding='utf-8') as f:
-    msg = json.load(f)
+try:
+    with open('msg.json', 'r', encoding='utf-8') as f:
+        msg = json.load(f)
+except FileNotFoundError:
+    sg.popup('File "msg.json" not found...', title='Opps!', button_type=sg.POPUP_BUTTONS_OK)
 
 # check if the language is supported in msg.json
 if lang not in msg:
