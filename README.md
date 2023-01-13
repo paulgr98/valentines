@@ -34,4 +34,4 @@ Finally, the question popup is shown:
 
 ![3](https://user-images.githubusercontent.com/51274359/212401898-5c382725-053f-4caa-ae7c-00ca6d0585e3.png)
 
-What next? See for youself!
+What's next? See for yourself!
