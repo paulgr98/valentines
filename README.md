@@ -18,7 +18,9 @@ Additional languages can be added in msg.json file.
 
 Executable file (app.exe) should run just fine.
 
-To run the script (app.py), you need at least **Python 3.11**
+To run the script (app.py), you need at least **Python 3.11**.
+
+The script also requires PySimpleGUI to be installed (version 4.60.4 was used).
 
 ## Showcase (from version 1.1)
 
